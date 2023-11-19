@@ -49,8 +49,8 @@ def book_view(book_id):
     user = next((user for user in users_data['users'] if user['id'] == user_id), None) if user_id else None
 
     # Check if the book is borrowed by the signed-in user
-    book_is_borrowed = any(issued_book['book_id'] == book_id and user_id == user['id'] for issued_book in user['issued_books'])
-    borrowed_date = next((issued_book['borrow_date'] for issued_book in user['issued_books'] if issued_book['book_id'] == book_id), None)
+    book_is_borrowed = any(issued_book['book_id'] == book_id and user_id == user['id'] for issued_book in user['issued_books']) if user else None
+    borrowed_date = next((issued_book['borrow_date'] for issued_book in user['issued_books'] if issued_book['book_id'] == book_id), None) if user else None
 
     # Check book availability
     book_available = book['available'] > 0

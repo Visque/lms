@@ -16,17 +16,21 @@
         <p>Author: {{ book['author'] }}</p>
         <p>Genre: {{ book['genre'] }}</p>
 
-        {% if book_is_borrowed %}
-            <p>Status: Borrowed by You</p>
-            <p>Borrowed Date: {{ borrowed_date }}</p>
-            <a href="{{ url_for('return_book', book_id=book['id']) }}" class="button">Return Book</a>
-        {% else %}
-            {% if book_available %}
-                <p>Status: Available ({{ book['available'] }} out of {{ book['count'] }})</p>
-                <a href="{{ url_for('borrow_book', book_id=book['id']) }}" class="button">Borrow Book</a>
+        {% if session.get('user_id') %}
+            {% if book_is_borrowed %}
+                <p>Status: Borrowed by You</p>
+                <p>Borrowed Date: {{ borrowed_date }}</p>
+                <a href="{{ url_for('return_book', book_id=book['id']) }}" class="button">Return Book</a>
             {% else %}
-                <p>Status: All copies are currently borrowed</p>
+                {% if book_available %}
+                    <p>Status: Available ({{ book['available'] }} out of {{ book['count'] }})</p>
+                    <a href="{{ url_for('borrow_book', book_id=book['id']) }}" class="button">Borrow Book</a>
+                {% else %}
+                    <p>Status: All copies are currently borrowed</p>
+                {% endif %}
             {% endif %}
+        {% else %}
+            <p>Please <a href="{{ url_for('signin') }}">Sign in</a> to borrow this book.</p>
         {% endif %}
 
     </div>
