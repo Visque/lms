@@ -1,0 +1,39 @@
+<!-- user_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user['name'] }} - Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_profile.css') }}">
+</head>
+<body>
+    <h1>{{ user['name'] }}'s Profile</h1>
+
+    <h2>Issued Books</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Borrowed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in user['issued_books'] %}
+                {% set book = data['books'] | selectattr('id', 'equalto', item['book_id']) | first %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('book_view', book_id=item['book_id']) }}">
+                            {{ book['title'] }}
+                        </a>
+                    </td>
+                    <td>{{ item['borrow_date'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="back-link"><a href="{{ url_for('home') }}">Back to Home</a></div>
+</body>
+</html>

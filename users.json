@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "visque",
+      "password": "123",
+      "issued_books": [
+        {
+          "book_id": 1,
+          "borrow_date": "2023-11-19"
+        },
+        {
+          "book_id": 2,
+          "borrow_date": "2023-11-19"
+        },
+        {
+          "book_id": 3,
+          "borrow_date": "2023-11-19"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "risque",
+      "password": "123",
+      "issued_books": [
+        {
+          "book_id": 1,
+          "borrow_date": "2023-11-19"
+        },
+        {
+          "book_id": 3,
+          "borrow_date": "2023-11-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "admin",
+      "password": "admin",
+      "issued_books": [
+        {
+          "book_id": 1,
+          "borrow_date": "2023-11-19"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "root",
+      "password": "root",
+      "issued_books": []
+    }
+  ]
+}

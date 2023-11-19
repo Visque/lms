@@ -1,0 +1,57 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Library</h1>
+        <div class="auth-links">
+            {% if user_id %}
+                <a href="{{ url_for('user_profile', user_id=user_id) }}">View Your Profile</a>
+                <a href="{{ url_for('signout') }}">Signout</a>
+            {% else %}
+                <a href="{{ url_for('signin') }}">Signin</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <form action="/" method="get">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" value="{{ search_query }}">
+        <button type="submit" class="button">Search</button>
+    </form>
+
+    <h2>Book List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Available Copies</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('book_view', book_id=book['id']) }}">
+                            {{ book['title'] }}
+                        </a>
+                    </td>
+                    <td>{{ book['author'] }}</td>
+                    <td>{{ book['genre'] }}</td>
+                    <td>{{ book['available'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

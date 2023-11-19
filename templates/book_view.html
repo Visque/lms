@@ -1,0 +1,34 @@
+<!-- view_book.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='book_view.css') }}">
+    <title>{{ book['title'] }} - Book Details</title>
+</head>
+<body>
+    <div class="container">
+        <p><a href="{{ url_for('home') }}" class="back-button">Back to Home</a></p>
+        <h1>{{ book['title'] }}</h1>
+
+        <p>Author: {{ book['author'] }}</p>
+        <p>Genre: {{ book['genre'] }}</p>
+
+        {% if book_is_borrowed %}
+            <p>Status: Borrowed by You</p>
+            <p>Borrowed Date: {{ borrowed_date }}</p>
+            <a href="{{ url_for('return_book', book_id=book['id']) }}" class="button">Return Book</a>
+        {% else %}
+            {% if book_available %}
+                <p>Status: Available ({{ book['available'] }} out of {{ book['count'] }})</p>
+                <a href="{{ url_for('borrow_book', book_id=book['id']) }}" class="button">Borrow Book</a>
+            {% else %}
+                <p>Status: All copies are currently borrowed</p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</body>
+</html>
